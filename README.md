@@ -19,27 +19,24 @@ A robust REST API implementation that handles structured JSON data with advanced
   - Advanced search capabilities
   - Document mapping and indexing
 - **Message Queuing**:
-  - Asynchronous processing
+  - Asynchronous processing with RabbitMQ
   - Event-driven architecture
   - Producer-Consumer pattern implementation
 - **Security**:
   - Bearer token authentication
-  - RS256 token validation
-  - Google IDP integration
-  - Secure token signing and verification
+  - Request validation
 
 ### Data Storage
 - **Key-Value Store**: Redis-based storage for high-performance data access
 - **Elasticsearch**: Advanced search and indexing capabilities
-- **SQLite**: Relational database for structured data
 
 ## Technology Stack
 
 - **Backend Framework**: Django with Django REST Framework
+- **Primary Database**: Redis for high-performance key-value storage
 - **Search Engine**: Elasticsearch
-- **Cache & Key-Value Store**: Redis
-- **Message Queue**: Custom implementation
-- **Authentication**: JWT with RS256
+- **Message Queue**: RabbitMQ
+- **Authentication**: Bearer token authentication
 - **Containerization**: Docker & Docker Compose
 - **API Documentation**: OpenAPI/Swagger
 
@@ -49,6 +46,7 @@ A robust REST API implementation that handles structured JSON data with advanced
 - Docker and Docker Compose
 - Redis
 - Elasticsearch
+- RabbitMQ
 
 ## Setup Instructions
 
@@ -74,11 +72,6 @@ pipenv install
 docker-compose up -d
 ```
 
-5. Run migrations:
-```bash
-python manage.py migrate
-```
-
 ## API Endpoints
 
 ### Plans
@@ -97,9 +90,9 @@ python manage.py migrate
 
 ## Authentication
 
-The API uses Bearer token authentication with RS256 signing. To authenticate:
+The API uses Bearer token authentication. To authenticate:
 
-1. Obtain a token from Google IDP
+1. Obtain a valid token
 2. Include the token in the Authorization header:
 ```
 Authorization: Bearer <your-token>
@@ -116,10 +109,10 @@ The application implements parent-child relationships in Elasticsearch for effic
 
 ## Message Queueing
 
-The application implements a producer-consumer pattern for asynchronous processing:
+The application implements a producer-consumer pattern for asynchronous processing using RabbitMQ:
 
 - **Producer**: Handles event generation and queue submission
-- **Consumer**: Processes queued events asynchronously
+- **Consumer**: Processes queued events asynchronously, particularly for Elasticsearch indexing
 
 ## Contributing
 
@@ -138,4 +131,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Django REST Framework
 - Elasticsearch
 - Redis
-- Google IDP 
+- RabbitMQ 
